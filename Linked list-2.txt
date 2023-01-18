@@ -4,19 +4,21 @@ class node{
     public:
     int data;
     node*next;
+    node(int val){
+        data=val;
+        next=NULL;
+    }
     
 };
-void traverse(node*head){
+void traverse(node* &head){
     node*n=head;
     while(n!=NULL){
         cout<<n->data<<endl;
         n=n->next;
     }
 }
-node*insertatfirst(node*head,int val){
-    node *n=new node();
-    n->data=val;
-    n->next=NULL;
+node*insertatfirst(node* &head,int val){
+    node *n=new node(val);
     if(head==NULL){
         head=n;
     }
@@ -26,10 +28,9 @@ node*insertatfirst(node*head,int val){
     }
     return head;
 }
-node*insertatlast(node*head,int val){
-    node *n=new node();
-    n->data=val;
-    n->next=NULL;
+node*insertatlast(node* &head,int val){
+    node *n=new node(val);
+
     node *temp=head;
     while(temp->next!=NULL){
         
@@ -38,10 +39,9 @@ node*insertatlast(node*head,int val){
     temp->next=n;
     return head;
 }
-node *insertatpos(node *head,int val,int pos){
-    node *n=new node();
-    n->data=val;
-    n->next=NULL;
+node *insertatpos(node * &head,int val,int pos){
+    node *n=new node(val);
+
     node*temp=head;
     
     int i=0;
@@ -55,13 +55,13 @@ node *insertatpos(node *head,int val,int pos){
     return head;
     
 }
-node*deletefirst(node*head){
+node*deletefirst(node * &head){
     node*p=head;
     head=head->next;
     delete(p);
     return head;
 }
-node*deletelast(node*head){
+node*deletelast(node * &head){
     node*temp=head;
     node*temp2=head->next;
     while(temp2->next!=NULL){
@@ -72,7 +72,7 @@ node*deletelast(node*head){
     delete(temp2);
     return head;
 }
-node*deleteatpos(node*head,int pos){
+node*deleteatpos(node * &head,int pos){
     node*temp=head;
     node*temp2=head->next;
     int i=0;
@@ -86,7 +86,7 @@ node*deleteatpos(node*head,int pos){
     return head;
 }
 //REVERSE ENTIRE LINKED LIST
-node*reverse(node*head){
+node*reverse(node * &head){
     node*prev=NULL;
     node*current=head;
     node*nextptr;
@@ -100,7 +100,7 @@ node*reverse(node*head){
     return head;
 }
 //REVERSE K NODES
-node*reverseknodes(node*head,int count){
+node*reverseknodes(node * &head,int count){
     node*prev=NULL;
     node*current=head;
     node*nextptr;
@@ -119,7 +119,7 @@ node*reverseknodes(node*head,int count){
     return head;
 }
 //MAKECYLE
-node*makecycle(node*head,int pos){
+node*makecycle(node * &head,int pos){
     node*temp=head;
     node*startcycle;
     int count=0;
@@ -134,7 +134,7 @@ node*makecycle(node*head,int pos){
         return head;
 }
 //DETECTING THE CYCLE
-bool detectcycle(node*head){
+bool detectcycle(node * &head){
     node*fast=head;
     node*slow=head;
     while(fast!=NULL && fast->next!=NULL){
@@ -147,7 +147,7 @@ bool detectcycle(node*head){
     return false;
 }
 //REMOVAL OF CYCLE
-void removalofcycle(node*head){
+void removalofcycle(node * &head){
     node*fast=head;
     node*slow=head;
     do{
@@ -162,17 +162,50 @@ void removalofcycle(node*head){
     
     slow->next=NULL;
 }
+//MERGE TWO SORTED LINKED LIST
+node*merge(node* &head1,node * &head2){
+    node*t1=head1;
+    node*t2=head2;
+    node*dummynode=new node(-1);
+    node *t3=dummynode;
+    while(t1!=NULL && t2!=NULL){
+        if(t1->data<t2->data){
+            t3->next=t1;
+            t1=t1->next;
+        }
+        else{
+            t3->next=t2;
+            t2=t2->next;
+            
+        }
+        t3=t3->next;
+    
+    }
+    while(t1!=NULL){
+        t3->next=t1;
+        t1=t1->next;
+        t3=t3->next;
+    }
+    while(t2!=NULL){
+        t3->next=t2;
+        t2=t2->next;
+        t3=t3->next;
+    }
+    return dummynode;
+}
 int main() {
     node* head=NULL;
+    node* head2=NULL;
     head=insertatfirst(head,6);
     head=insertatlast(head,7);
     head=insertatlast(head,8);
     head=insertatlast(head,9);
-   head=insertatpos(head,7,2);
-  head=makecycle(head,2);
-  cout<<detectcycle(head)<<endl;
-  removalofcycle(head);
-  cout<<detectcycle(head)<<endl;
+    head2=insertatfirst(head2,10);
+    head2=insertatlast(head2,11);
+    head2=insertatlast(head2,12);
+    head2=insertatlast(head2,13);
+ // traverse(head);
+ head=merge(head,head2);
   traverse(head);
     return 0;
 }

@@ -1,0 +1,94 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class node{
+    public:
+    int data;
+    node*next;
+    node*prev;
+    node(int val){
+        data=val;
+        next=NULL;
+        prev=NULL;
+    }};
+//INSERT AT FIRST
+node*insertathead(node*head,int data){
+    node*temp=new node(data);
+    if(head==NULL){
+        head=temp;
+    }
+    else{
+        temp->next=head;
+        head->prev=temp;
+        head=temp;
+    }
+    return head;
+}
+//INSERT AT END
+node*insertattail(node*head,int data){
+    node*temp=new node(data);
+    node*n=head;
+    while(n->next!=NULL){
+        n=n->next;
+    }
+    n->next=temp;
+    temp->prev=n;
+    return head;
+}
+//DELETE FIRST
+node*deletefirst(node*head){
+    node*p=head;
+    head=head->next;
+    head->prev=NULL;
+    delete(p);
+    return head;
+}
+//DELETE END
+node*deleteatend(node*head){
+    node*p=head;
+    node*q=head->next;
+    while(q->next!=NULL){
+        p=p->next;
+        q=q->next;
+    }
+    p->next=NULL;
+    delete(q);
+    return head;
+}
+//DELETE AT MIDDLE
+node*deleteatmiddle(node*head,int pos)
+{
+    node*temp1=head;
+    node*temp2=head->next;
+    int i=0;
+    while(i!=pos-1){
+        temp1=temp1->next;
+        temp2=temp2->next;
+        i+=1;
+    }
+    temp2->next->prev=temp1;
+    temp1->next=temp2->next;
+    delete(temp2);
+    return head;
+}
+//TRAVERSE
+void traverse(node*head){
+    node*temp=head;
+    while(temp!=NULL){
+        cout<<temp->data<<endl;
+        temp=temp->next;
+    }
+}
+int main() {
+    node*head=new node(6);
+    head=insertathead(head,2);
+    head=insertattail(head,3);
+    head=insertattail(head,4);
+    head=insertattail(head,5);
+    head=insertattail(head,6);
+    //head=deletefirst(head);
+    //head=deleteatend(head);
+    head=deleteatmiddle(head,3);
+    traverse(head);
+    return 0;
+}

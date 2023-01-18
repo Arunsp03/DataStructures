@@ -1,0 +1,178 @@
+#include <iostream>
+using namespace std;
+class node{
+    public:
+    int data;
+    node*next;
+    
+};
+void traverse(node*head){
+    node*n=head;
+    while(n!=NULL){
+        cout<<n->data<<endl;
+        n=n->next;
+    }
+}
+node*insertatfirst(node*head,int val){
+    node *n=new node();
+    n->data=val;
+    n->next=NULL;
+    if(head==NULL){
+        head=n;
+    }
+    else{
+        n->next=head;
+        head=n;
+    }
+    return head;
+}
+node*insertatlast(node*head,int val){
+    node *n=new node();
+    n->data=val;
+    n->next=NULL;
+    node *temp=head;
+    while(temp->next!=NULL){
+        
+        temp=temp->next;
+    }
+    temp->next=n;
+    return head;
+}
+node *insertatpos(node *head,int val,int pos){
+    node *n=new node();
+    n->data=val;
+    n->next=NULL;
+    node*temp=head;
+    
+    int i=0;
+    while(i!=pos-1){
+        i+=1;
+        temp=temp->next;
+    
+    }
+    n->next=temp->next;
+    temp->next=n;
+    return head;
+    
+}
+node*deletefirst(node*head){
+    node*p=head;
+    head=head->next;
+    delete(p);
+    return head;
+}
+node*deletelast(node*head){
+    node*temp=head;
+    node*temp2=head->next;
+    while(temp2->next!=NULL){
+        temp=temp->next;
+        temp2=temp2->next;
+    }
+    temp->next=temp2->next;
+    delete(temp2);
+    return head;
+}
+node*deleteatpos(node*head,int pos){
+    node*temp=head;
+    node*temp2=head->next;
+    int i=0;
+    while(i!=pos-1){
+        temp=temp->next;
+        temp2=temp2->next;
+        i+=1;
+    }
+    temp->next=temp2->next;
+    delete(temp2);
+    return head;
+}
+//REVERSE ENTIRE LINKED LIST
+node*reverse(node*head){
+    node*prev=NULL;
+    node*current=head;
+    node*nextptr;
+    while(current !=NULL){
+        nextptr=current->next;
+        current->next=prev;
+        prev=current;
+        current=nextptr;
+    }
+    head=prev;
+    return head;
+}
+//REVERSE K NODES
+node*reverseknodes(node*head,int count){
+    node*prev=NULL;
+    node*current=head;
+    node*nextptr;
+    int i=0;
+    while(i<count && current!=NULL){
+        nextptr=current->next;
+        current->next=prev;
+        prev=current;
+        current=nextptr;
+        i+=1;
+    }
+    if(nextptr!=NULL){
+        head->next=reverseknodes(nextptr,count);
+    }
+    head=prev;
+    return head;
+}
+//MAKECYLE
+node*makecycle(node*head,int pos){
+    node*temp=head;
+    node*startcycle;
+    int count=0;
+    while(temp->next!=NULL){
+        if(count==pos-1){
+            startcycle=temp;
+            
+        }
+         temp=temp->next;
+        }
+        temp->next=startcycle;
+        return head;
+}
+//DETECTING THE CYCLE
+bool detectcycle(node*head){
+    node*fast=head;
+    node*slow=head;
+    while(fast!=NULL && fast->next!=NULL){
+        fast=fast->next->next;
+        slow=slow->next;
+        if(fast==slow){
+            return true;
+        }
+    }
+    return false;
+}
+//REMOVAL OF CYCLE
+void removalofcycle(node*head){
+    node*fast=head;
+    node*slow=head;
+    do{
+        slow=slow->next;
+        fast=fast->next->next;
+    }while(slow!=fast);
+    fast=head;
+    while(fast->next!=slow->next){
+        fast=fast->next;
+        slow=slow->next;
+    }
+    
+    slow->next=NULL;
+}
+int main() {
+    node* head=NULL;
+    head=insertatfirst(head,6);
+    head=insertatlast(head,7);
+    head=insertatlast(head,8);
+    head=insertatlast(head,9);
+   head=insertatpos(head,7,2);
+  head=makecycle(head,2);
+  cout<<detectcycle(head)<<endl;
+  removalofcycle(head);
+  cout<<detectcycle(head)<<endl;
+  traverse(head);
+    return 0;
+}

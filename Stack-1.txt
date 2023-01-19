@@ -1,0 +1,55 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+#define n 100
+class stack{
+    int top;
+    int *arr;
+    public:
+    stack(){
+        top=-1;
+        arr=new int [n];
+    };
+    //PUSH
+    void push(int val){
+        if(top==n-1){
+            cout<<"NOT POSSIBLE"<<endl;
+            
+        }
+        top+=1;
+        arr[top]=val;
+    }
+    //POP
+    void pop(){
+        if(top==-1){
+            cout<<"underflow"<<endl;
+        }
+        top-=1;
+        
+    }
+    //TOPVAL
+    void topval(){
+        cout<<arr[top]<<endl;
+    }
+    //ISEMPTY
+    bool isempty(){
+        if(top==-1){
+            cout<<"isempty"<<endl;
+        }
+    }
+};
+
+int main() {
+    stack st;
+    st.push(3);
+      st.push(4);
+        st.push(5);
+          st.push(6);
+          st.pop();
+          st.pop();
+          st.pop();
+          st.pop();
+          st.isempty();
+          st.topval();
+     return 0;
+}

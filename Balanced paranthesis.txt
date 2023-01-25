@@ -1,0 +1,19 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        lst=[]
+        for i in s:
+            if i=='(' or i=='{' or i=='[':
+                lst.append(i)
+            elif i==')' or i=='}' or i==']':
+                if len(lst)==0:
+                    return False
+                m=lst.pop()
+                if m=='(' and i==')' or  m=='[' and i==']' or m=='{' and i=='}':
+                    
+                    continue
+                else:
+                    return False
+        if len(lst)==0:
+            return True
+        else:
+            return False

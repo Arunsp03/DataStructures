@@ -1,0 +1,63 @@
+#include <bits/stdc++.h> 
+// Stack class.
+using namespace std;
+class Stack {
+    int tops;
+    int capacitys;
+    int *arr;
+public:
+    
+    Stack(int capacity) {
+        tops=-1;
+        capacitys=capacity;
+        arr=new int[capacity];
+    }
+
+    void push(int num) {
+        if(isFull()){
+            cout<<-1;
+        }
+        tops+=1;
+        arr[tops]=num;
+    }
+
+    int pop() {
+        if(isEmpty()){
+            return -1;
+        }
+
+           int val=arr[tops];
+            tops-=1;
+            return val;
+
+        
+    }
+    
+    int top() {
+        if(isEmpty()){
+            return -1;
+        }
+        int val=arr[tops];
+        
+        return val;
+    }
+    
+    int isEmpty() {
+        if(tops==-1){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+    int isFull() {
+        if(tops==capacitys-1){
+            return 1;
+        }
+        else{
+            return 0;
+        }
+    }
+    
+};

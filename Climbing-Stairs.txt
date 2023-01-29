@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        int num1=0; //solution for 0th step
+        int num2=1; //solution for 1st step
+        int sum=0;
+        int i=1;
+        while(i<=n){
+            sum=num1+num2;//we solve the current step by using the two previous steps 
+            num1=num2; //num1 is the solution of the step before the previous step
+            num2=sum; //num2 is the solution of the previous step 
+            i+=1;
+        }
+        return sum;
+    }
+};

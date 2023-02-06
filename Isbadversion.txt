@@ -1,0 +1,13 @@
+class Solution:
+    def firstBadVersion(self, n: int) -> int:
+        l=1
+        h=n
+        k=1
+        while(k>0):
+            k=(l+h)//2
+            if isBadVersion(k)==True and isBadVersion(k-1)==False:
+                return k
+            elif isBadVersion(k)==False:
+                l=k+1
+            else:
+                h=k-1

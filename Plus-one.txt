@@ -1,0 +1,17 @@
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        k=len(digits)-1
+        num=0
+        lst=[]
+        for i in digits:
+            num+=i*(1*(10**k))
+            k-=1
+        num+=1
+        p=num
+        rem=0
+        while(p>0):
+            rem=p%10
+            lst.append(rem)
+            p=p//10
+        print(lst)
+        return lst[::-1]

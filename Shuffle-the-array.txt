@@ -1,0 +1,15 @@
+class Solution:
+    def shuffle(self, nums: List[int], n: int) -> List[int]:
+        low=0
+        high=len(nums)
+        mid=((low+high)//2)
+        i=0
+        lst=[]
+        while(i<n):
+            lst.append(nums[low])
+            lst.append(nums[mid])
+            i+=1
+            low+=1
+            mid+=1
+        return lst
+            

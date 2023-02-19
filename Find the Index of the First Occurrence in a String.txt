@@ -1,0 +1,23 @@
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        j=0
+        start=0
+        i=0
+        if needle not in haystack:
+            return -1
+        else:
+            word=""
+            while(i<len(haystack)):
+                if needle[j]==haystack[i]:
+                    j+=1
+                    word+=haystack[i]
+                    i+=1
+                    if(word==needle):
+                        return start
+                else:
+                    j=0
+                    word=""
+                    start+=1
+                    i=start
+                    continue
+        return -1

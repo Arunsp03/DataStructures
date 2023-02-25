@@ -1,0 +1,8 @@
+import math as m
+class Solution:
+    def countOdds(self, low: int, high: int) -> int:
+        return m.ceil(high/2)-m.ceil((low-1)/2)
+
+
+//we check the no of numbers from the high to zero and subtract it with the number of odd numbers from zero to low -1
+// because low can also be a odd number
